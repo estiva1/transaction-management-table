@@ -1,0 +1,5 @@
+.tableRowHeader {
+    background-color: #93BDFD;
+    transition: all 2.25s ease;
+    border-radius: 10px;
+  }
