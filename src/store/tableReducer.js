@@ -4,6 +4,8 @@ export const tableReducer = (state = [], action) => {
       return state.concat(action.payload);
     case "UPDATE_DATA":
       return state.concat([]);
+    case "UPDATE_TRANSACTION":
+      return state.concat([]);
     case "CLEAR_TABLE":
       return (state = []); // Fastest way to clear an existing array according to jsben.ch
     case "DELETE_ROW":

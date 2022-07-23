@@ -17,7 +17,7 @@ export const Transactions = () => {
   const dispatch = useDispatch();
   const CSVData = useSelector((state) => state.tableReducer);
   //console.log(CSVData); //start Data from reducer in index.js (then - array of objects from CSV)
-  useEffect(() => {}, []);
+  
   //----------------------------------------------
   const logout = () => {
     setIsAuth(false);
@@ -72,8 +72,8 @@ export const Transactions = () => {
   return (
     <>
       <br />
-      <form className="Auth-form">
-        <div className="form-group mt-3">
+      <form className="Auth-form mx-4">
+        <div className="form-group">
           <label>Pick a file</label>
           <input
             className="form-control mt-1"
@@ -113,7 +113,7 @@ export const Transactions = () => {
             <Button className="mx-3">Export</Button>
           </CSVLink>
 
-          <Button onClick={dispatch({ type: "CLEAR_TABLE" })}>
+          <Button onClick={() => dispatch({ type: "CLEAR_TABLE" })}>
             Clear Table
           </Button>
         </div>

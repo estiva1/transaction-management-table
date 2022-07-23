@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 import styles from "../table/TableBody.module.css";
 import useTable from "../../../hooks/useTable";
 import TablePagination from "../pagination/TablePagination";
+import { Form } from "react-bootstrap";
 
 const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
   const [page, setPage] = useState(1);
+  const [value, setValue] = useState("");
   const { slice, range } = useTable(dataForTable, page, rowsPerPage);
 
   //----------------------------------------------
@@ -18,8 +20,8 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
         {/* Getting header names from our .csv file */}
         <thead className={styles.tableRowHeader}>
           <tr key={"header"}>
-            {headersNames.map((key) => (
-              <th>{key}</th>
+            {headersNames.map((header, key) => (
+              <th key={key}>{header}</th>
             ))}
           </tr>
         </thead>
@@ -29,17 +31,20 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
           {slice.map((item) => (
             <tr key={item.id}>
               {Object.values(item).map((val) => (
-                <td>
-                  <input type="text" value={val}/>
+                <td key={val.id}>
+                  <Form.Control
+                    value={val}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
                 </td>
               ))}
               <td>
                 <input
                   type="button"
                   onClick={
-                    () => dispatch({ type: "DELETE_ROW", payload: item }) //only after clicking on another page
+                    () => dispatch({ type: "DELETE_ROW", payload: item })
                   }
-                  value="X"
+                  value="Del"
                 ></input>
               </td>
             </tr>
