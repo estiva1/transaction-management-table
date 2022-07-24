@@ -17,10 +17,10 @@ const TablePagination = ({ range, setPage, page, slice }) => {
       {range.map((el, index) => (
         <button
           key={index}
+          onClick={() => setPage(el)}
           className={`${styles.button} ${
             page === el ? styles.activeButton : styles.inactiveButton
           }`}
-          onClick={() => setPage(el)}
         >
           {el}
         </button>

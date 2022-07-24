@@ -2,6 +2,8 @@ export const tableReducer = (state = [], action) => {
   switch (action.type) {
     case "LOAD_DATA":
       return state.concat(action.payload);
+    case "SORT_DATA":
+      return (state = [].concat(action.payload));
     case "UPDATE_DATA":
       return state.concat([]);
     case "UPDATE_TRANSACTION":

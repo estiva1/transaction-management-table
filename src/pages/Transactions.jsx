@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import TableBody from "../components/UI/table/TableBody";
+import TableBody from "../components/UI/table/body/TableBody";
 import { CSVLink } from "react-csv";
 import { AuthContext } from "../context";
 import { useDispatch, useSelector } from "react-redux/es/exports";
