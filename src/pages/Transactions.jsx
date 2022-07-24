@@ -12,6 +12,7 @@ export const Transactions = () => {
   const [file, setFile] = useState(); // state for picked file
   const [limit, setLimit] = useState(10); // initial number of rows in table
   const [visible, setVisible] = useState(false); // initial state for table component
+  const [length, setLength] = useState(0);
 
   //-----⌄⌄⌄ For table ⌄⌄⌄-----
   const dispatch = useDispatch();
@@ -42,7 +43,9 @@ export const Transactions = () => {
       }, {});
       return obj;
     });
+    setLength(dataFromCSV.length);
     dispatch({ type: "LOAD_DATA", payload: dataFromCSV });
+    //console.log(length);
     setVisible(true);
   };
 
@@ -102,6 +105,7 @@ export const Transactions = () => {
           <option value={15}>15</option>
           <option value={25}>25</option>
           <option value={50}>50</option>
+          <option value={length}>{length} (All)</option>
         </Form.Select>
 
         <div className="form-group mt-3 mb-3">
