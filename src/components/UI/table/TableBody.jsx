@@ -13,15 +13,14 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
   //-----⌄⌄⌄ For modal window ⌄⌄⌄-----
   const [selectedItem, setSelectedItem] = useState(null);
 
-
   //----------------------------------------------
   const dispatch = useDispatch();
   //const CSVData = useSelector((state) => state.tableReducer);
 
   const deleteRow = () => {
-    dispatch({ type: "DELETE_ROW", payload: selectedItem })
+    dispatch({ type: "DELETE_ROW", payload: selectedItem });
     setSelectedItem(null);
-  }
+  };
 
   return (
     <>
@@ -32,6 +31,13 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
             {headersNames.map((header, key) => (
               <th key={key}>{header}</th>
             ))}
+
+            {/* -----⌄⌄⌄ Just to match header fill color ⌄⌄⌄----- */}
+            
+            {/* Delete button */}
+            <th></th>
+            {/* Edit button */}
+            <th></th>
           </tr>
         </thead>
 
@@ -50,11 +56,12 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
               <td>
                 <input
                   type="button"
-                  onClick={
-                    () => setSelectedItem(item)
-                  }
-                  value="Del"
+                  onClick={() => setSelectedItem(item)}
+                  value="Delete"
                 ></input>
+              </td>
+              <td>
+                <input type="button" value="Edit"></input>
               </td>
             </tr>
           ))}

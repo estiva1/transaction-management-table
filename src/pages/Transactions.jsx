@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 
 export const Transactions = () => {
   const { isAuth, setIsAuth } = useContext(AuthContext);
-  const [file, setFile] = useState();
-  const [limit, setLimit] = useState(10);
+  const [file, setFile] = useState(); // state for picked file
+  const [limit, setLimit] = useState(10); // initial number of rows in table
+  const [visible, setVisible] = useState(false); // initial state for table component
 
   //-----⌄⌄⌄ For table ⌄⌄⌄-----
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ export const Transactions = () => {
       return obj;
     });
     dispatch({ type: "LOAD_DATA", payload: dataFromCSV });
+    setVisible(true);
   };
 
   //----------------------------
@@ -65,6 +67,11 @@ export const Transactions = () => {
   const exportCSV = {
     data: CSVData,
     filename: "data.csv",
+  };
+
+  const clearTable = () => {
+    dispatch({ type: "CLEAR_TABLE" });
+    setVisible(false);
   };
 
   //----------------------------
@@ -111,9 +118,7 @@ export const Transactions = () => {
             <Button className="mx-3">Export</Button>
           </CSVLink>
 
-          <Button onClick={() => dispatch({ type: "CLEAR_TABLE" })}>
-            Clear Table
-          </Button>
+          <Button onClick={() => clearTable()}>Clear Table</Button>
         </div>
 
         <div className="form-group mt-3">
@@ -123,11 +128,13 @@ export const Transactions = () => {
 
       <br />
 
-      <TableBody
-        headersNames={headers}
-        dataForTable={CSVData}
-        rowsPerPage={limit}
-      />
+      {visible ? (
+        <TableBody
+          headersNames={headers}
+          dataForTable={CSVData}
+          rowsPerPage={limit}
+        />
+      ) : null}
     </>
   );
 };
