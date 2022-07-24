@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./TableHead.module.css"
+import styles from "./TableHead.module.css";
 
 export const TableHead = ({ headersNames, handleSorting }) => {
   const [sortField, setSortField] = useState("");
@@ -16,10 +16,20 @@ export const TableHead = ({ headersNames, handleSorting }) => {
   return (
     <thead className={styles.tableRowHeader}>
       <tr key={"header"}>
-        {headersNames.map((label, key, sortable) => (
-          <th key={key} onClick={() => handleSortingChange(label)}>
+        {headersNames.map((label, key) => (
+          <th
+            key={key}
+            onClick={() => handleSortingChange(label)}
+            className={`${styles.header} ${
+              sortField === label && order === "asc"
+                ? styles.up
+                : sortField === label && order === "desc"
+                ? styles.down
+                : styles.default
+            }`}
+          >
             {label}
-          </th> 
+          </th>
         ))}
 
         {/* -----⌄⌄⌄ Just to match header fill color ⌄⌄⌄----- */}
@@ -32,11 +42,3 @@ export const TableHead = ({ headersNames, handleSorting }) => {
     </thead>
   );
 };
-
-// className={`${styles.header} ${
-//     sortField === accessor && order === "asc"
-//       ? "up"
-//       : sortField === accessor && order === "desc"
-//       ? "down"
-//       : "default"
-//   }`}

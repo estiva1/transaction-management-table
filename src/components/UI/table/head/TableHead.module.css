@@ -1,19 +1,20 @@
 .tableRowHeader {
-  background-color: #93bdfd;
+  background-color: #C7DDFF;
+  cursor: pointer;
 }
 
-.table th.up {
+.up {
   background-image: url("../../../../assets/up_arrow.png");
 }
-.table th.down {
+.down {
   background-image: url("../../../../assets/down_arrow.png");
 }
-.table th.default {
+.default {
   background-image: url("../../../../assets/default.png");
 }
-th.up,
-th.default,
-th.down {
+.up,
+.down,
+.default {
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: center right;

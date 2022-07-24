@@ -32,55 +32,57 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
           }) * (sortOrder === "asc" ? 1 : -1)
         );
       });
-      dispatch({type: "SORT_DATA", payload: sorted})
+      dispatch({ type: "SORT_DATA", payload: sorted });
     }
   };
 
   return (
     <>
-      <table className="table table-striped table-hover border-secondary">
-        <TableHead {...{ headersNames, handleSorting }} />
+      <div className="table-wrapper">
+        <table className="table table-striped table-hover border-secondary">
+          <TableHead {...{ headersNames, handleSorting }} />
 
-        {/* Filling table from our .csv file */}
-        <tbody>
-          {slice.map((item) => (
-            <tr key={item.id}>
-              {Object.values(item).map((val) => (
-                <td key={val.id}>
-                  <Form.Control
-                    value={val}
-                    onChange={(e) => console.log(e.target.value)}
-                  />
+          {/* Filling table from our .csv file */}
+          <tbody>
+            {slice.map((item) => (
+              <tr key={item.id}>
+                {Object.values(item).map((val) => (
+                  <td key={val.id}>
+                    <Form.Control
+                      value={val}
+                      onChange={(e) => console.log(e.target.value)}
+                    />
+                  </td>
+                ))}
+                <td>
+                  <input
+                    type="button"
+                    onClick={() => setSelectedItem(item)}
+                    value="Delete"
+                  ></input>
                 </td>
-              ))}
-              <td>
-                <input
-                  type="button"
-                  onClick={() => setSelectedItem(item)}
-                  value="Delete"
-                ></input>
-              </td>
-              <td>
-                <input type="button" value="Edit"></input>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <td>
+                  <input type="button" value="Edit"></input>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <ModalWindow
-        show={selectedItem !== null}
-        onHide={() => setSelectedItem(null)}
-        handleClose={() => setSelectedItem(null)}
-        handleConfirm={() => deleteRow()}
-      />
+        <ModalWindow
+          show={selectedItem !== null}
+          onHide={() => setSelectedItem(null)}
+          handleClose={() => setSelectedItem(null)}
+          handleConfirm={() => deleteRow()}
+        />
 
-      <TablePagination
-        range={range}
-        slice={slice}
-        setPage={setPage}
-        page={page}
-      />
+        <TablePagination
+          range={range}
+          slice={slice}
+          setPage={setPage}
+          page={page}
+        />
+      </div>
     </>
   );
 };
