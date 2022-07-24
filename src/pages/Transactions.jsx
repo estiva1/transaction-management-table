@@ -6,18 +6,17 @@ import TableBody from "../components/UI/table/TableBody";
 import { CSVLink } from "react-csv";
 import { AuthContext } from "../context";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-//import { tableReducer } from "../store/tableReducer";
 
 export const Transactions = () => {
   const { isAuth, setIsAuth } = useContext(AuthContext);
   const [file, setFile] = useState();
   const [limit, setLimit] = useState(10);
 
-  //----------------------------------------------
+  //-----⌄⌄⌄ For table ⌄⌄⌄-----
   const dispatch = useDispatch();
   const CSVData = useSelector((state) => state.tableReducer);
   //console.log(CSVData); //start Data from reducer in index.js (then - array of objects from CSV)
-  
+
   //----------------------------------------------
   const logout = () => {
     setIsAuth(false);
@@ -86,7 +85,6 @@ export const Transactions = () => {
 
         <label className="mt-3">Elements per page</label>
         <Form.Select
-        
           value={limit}
           onChange={(e) => {
             setLimit(e.target.value);

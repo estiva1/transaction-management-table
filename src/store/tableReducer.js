@@ -12,7 +12,6 @@ export const tableReducer = (state = [], action) => {
       let index = state.indexOf(action.payload);
       state.splice(index, 1);
       return state.concat([]); // without extra concat() function it will rerender only after page being changed - ???
-
     default:
       return state;
   }

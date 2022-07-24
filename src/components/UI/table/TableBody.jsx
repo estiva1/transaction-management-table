@@ -4,15 +4,24 @@ import styles from "../table/TableBody.module.css";
 import useTable from "../../../hooks/useTable";
 import TablePagination from "../pagination/TablePagination";
 import { Form } from "react-bootstrap";
+import { ModalWindow } from "../modal/ModalWindow";
 
 const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
   const [page, setPage] = useState(1);
-  const [value, setValue] = useState("");
   const { slice, range } = useTable(dataForTable, page, rowsPerPage);
+
+  //-----⌄⌄⌄ For modal window ⌄⌄⌄-----
+  const [selectedItem, setSelectedItem] = useState(null);
+
 
   //----------------------------------------------
   const dispatch = useDispatch();
-  const CSVData = useSelector((state) => state.tableReducer);
+  //const CSVData = useSelector((state) => state.tableReducer);
+
+  const deleteRow = () => {
+    dispatch({ type: "DELETE_ROW", payload: selectedItem })
+    setSelectedItem(null);
+  }
 
   return (
     <>
@@ -34,7 +43,7 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
                 <td key={val.id}>
                   <Form.Control
                     value={val}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => console.log(e.target.value)}
                   />
                 </td>
               ))}
@@ -42,7 +51,7 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
                 <input
                   type="button"
                   onClick={
-                    () => dispatch({ type: "DELETE_ROW", payload: item })
+                    () => setSelectedItem(item)
                   }
                   value="Del"
                 ></input>
@@ -51,6 +60,13 @@ const TableBody = ({ headersNames, dataForTable, rowsPerPage }) => {
           ))}
         </tbody>
       </table>
+
+      <ModalWindow
+        show={selectedItem !== null}
+        onHide={() => setSelectedItem(null)}
+        handleClose={() => setSelectedItem(null)}
+        handleConfirm={() => deleteRow()}
+      />
 
       <TablePagination
         range={range}
