@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/Transactions.css";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import TableBody from "../components/UI/table/body/TableBody";
@@ -12,7 +13,7 @@ export const Transactions = () => {
   const [file, setFile] = useState(); // state for picked file
   const [limit, setLimit] = useState(10); // initial number of rows in table
   const [visible, setVisible] = useState(false); // initial state for table component
-  const [length, setLength] = useState(0);
+  const [length, setLength] = useState(0); // initial state for max number of rows from picked csv-file
 
   //-----⌄⌄⌄ For table ⌄⌄⌄-----
   const dispatch = useDispatch();
@@ -45,7 +46,6 @@ export const Transactions = () => {
     });
     setLength(dataFromCSV.length);
     dispatch({ type: "LOAD_DATA", payload: dataFromCSV });
-    //console.log(length);
     setVisible(true);
   };
 
@@ -126,19 +126,20 @@ export const Transactions = () => {
         </div>
 
         <div className="form-group mt-3">
-          <Button onClick={logout}>Logout</Button>
+          <Button className="btn btn-secondary" onClick={logout} >Logout</Button>
         </div>
       </form>
 
       <br />
-
-      {visible ? (
-        <TableBody
-          headersNames={headers}
-          dataForTable={CSVData}
-          rowsPerPage={limit}
-        />
-      ) : null}
+      <div className="table-wrapper">
+        {visible ? (
+          <TableBody
+            headersNames={headers}
+            dataForTable={CSVData}
+            rowsPerPage={limit}
+          />
+        ) : null}
+      </div>
     </>
   );
 };
